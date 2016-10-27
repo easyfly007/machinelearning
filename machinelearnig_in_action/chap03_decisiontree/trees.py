@@ -36,6 +36,7 @@ def splitdataset(dataset, axis, value):
 			retdataset.append(reducedfeatvec)
 	return retdataset
 
+
 def choosebestfeaturetosplit(dataset):
 	numfeatures = len(dataset[0]) -1
 	baseentropy = calcshannonentropy(dataset)
@@ -82,3 +83,19 @@ def createtree(dataset, labels):
 		sublabels = labels[:]
 		mytree[bestfeaulabel][value] = createtree(splitdataset(dataset, bestfeature, value), sublabels)
 	return mytree
+
+
+import matplotlib.pyplot as plt 
+decisionnode = dict(boxstyle = 'aswtooth', fc = '0.8')
+leafnode = dict(boxstyle = 'round4', fc= '0.8')
+arrow_args = dict(arrowstyle = "<-")
+def plotnode(nodetxt, centerpt, parentpt, nodetype):
+	createplot.ax1.annotate(nodetxt, xy=parentpt, xycoords = 'axes fraction', xytext=centerpt, textcoords = 'axes fraction', va = 'center', ha = 'center', bbox = nodetype, arowprops = arrow_args)
+
+def createplot():
+	fig = plt.figure(1, facecolor = 'white')
+	fig.clf()
+	createPlot.ax1 = plt.subplot(111, frameon = False)
+	plotnode(U'decision point', (0.5, 0.1), (0.1, 0.5), decisionnode)
+	plotnode(U'leaf node', (0.8, 0.1), (0.3, 0.8), leafnode)
+	plt.show()
